@@ -44,7 +44,7 @@ Add the FunGuard SDK AAR to your project's `build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation("com.funsol.securitysdk:funguardsdk:1.0.1")
+    implementation("com.github.Funsol-Projects:FunGuard-SDK:v1.0.1")
 }
 ```
 
