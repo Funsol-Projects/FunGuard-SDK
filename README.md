@@ -146,7 +146,7 @@ override fun onResume() {
 
 ### Dialog Customization
 
-![FunGuard SDK Dialog](images/funguard_dialog.jpg)
+![FunGuard SDK Dialog](images/funguard_dialog.png)
 
 The SDK provides a **default dialog** that appears when a security issue is detected. However, you can fully customize the dialog appearance and behavior using `DialogConfig`.
 
