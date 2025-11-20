@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
             rootCheck = true,
             tamperingCheck = true,
             fridaCheck = true,
-            debuggerCheck = true,  // We're debugging, so skip this
+            debuggerCheck = true,  // if your are debugging, so skip this
             emulatorCheck = true,   // Allow testing on emulator
             showWarningDialog = true, // Show dialog if security check fails
             loggingEnabled = true, // Enable logging in debug mode
@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
+        text = "FunGuard SDK",
         modifier = modifier
     )
 }

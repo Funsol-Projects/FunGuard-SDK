@@ -1,4 +1,4 @@
-# FunGuard SDK [![](https://jitpack.io/v/Funsol-Projects/Funsol-Billing-Helper.svg)](https://jitpack.io/#Funsol-Projects/Funsol-Billing-Helper)
+# FunGuard SDK [![](https://jitpack.io/v/Funsol-Projects/FunGuard-SDK.svg)](https://jitpack.io/#Funsol-Projects/FunGuard-SDK)
 
 <div align="center">
 

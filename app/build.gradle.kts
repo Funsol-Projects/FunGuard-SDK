@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("maven-publish")
 }
 
 android {
@@ -62,4 +63,20 @@ dependencies {
 
     // SDK AAR File
     implementation(files("libs/funguardsdk-release.aar"))
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                groupId = "com.github.Funsol-Projects"
+                artifactId = "FunGuard-SDK"
+                version = "1.0.1"
+
+                artifact(file("libs/funguardsdk-release.aar")) {
+                    extension = "aar"
+                }
+            }
+        }
+    }
 }
