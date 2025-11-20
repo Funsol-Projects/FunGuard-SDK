@@ -48,9 +48,33 @@ dependencies {
 }
 ```
 
+### Required Dependencies
+
+The SDK uses Jetpack Compose for the warning dialog UI. If your project doesn't already use Compose, you need to add the following dependencies:
+
+```kotlin
+dependencies {
+    // Compose dependencies (required if your project doesn't use Compose)
+    val composeBom = platform("androidx.compose:compose-bom:2024.02.00")
+    implementation(composeBom)
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.runtime:runtime")
+    implementation("androidx.activity:activity-compose:1.8.2")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    
+    // Coroutines for async operations (required)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+}
+```
+
+**Note:** If your project already uses Jetpack Compose and Coroutines, you can skip adding these dependencies as they're already included in your project.
+
 ### Sync Gradle
 
-Sync your project to download the dependency.
+Sync your project to download the dependencies.
 
 ---
 
@@ -65,7 +89,7 @@ import com.funsol.securitysdk.models.SecurityResult
 import com.funsol.securitysdk.models.SecurityIssue
 
 class MainActivity : ComponentActivity() {
-    
+
     private val securityListener = object : SecurityListener {
         override fun onSecurityCheckComplete(result: SecurityResult) {
             if (result.isSecure) {
@@ -78,7 +102,7 @@ class MainActivity : ComponentActivity() {
                 Log.w("Security", "Issue detected: ${result.issueType}")
             }
         }
-        
+
         override fun onCancel(issueType: SecurityIssue) {
             // IMPORTANT: When user clicks Cancel, you MUST close the app yourself
             // SDK will NOT automatically close the app
@@ -86,10 +110,10 @@ class MainActivity : ComponentActivity() {
             finish() // Close the activity/app
         }
     }
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         FunGuardSDK.checkSecurity(
             context = this,
             showWarningDialog = true,
@@ -106,7 +130,7 @@ class MainActivity : ComponentActivity() {
 ```kotlin
 override fun onResume() {
     super.onResume()
-    
+
     FunGuardSDK.checkSecurity(
         context = this,
         showWarningDialog = true,
@@ -296,7 +320,7 @@ data class DialogConfig(
 
 ```kotlin
 class MainActivity : ComponentActivity() {
-    
+
     private val securityListener = object : SecurityListener {
         override fun onSecurityCheckComplete(result: SecurityResult) {
             if (result.isSecure) {
@@ -309,20 +333,20 @@ class MainActivity : ComponentActivity() {
                 // You can add additional logging or analytics here if needed
             }
         }
-        
+
         override fun onCancel(issueType: SecurityIssue) {
             // IMPORTANT: User clicked Cancel - close app yourself
             // Save any important data before closing
             saveImportantData()
-            
+
             // Close the app
             finish()
         }
     }
-    
+
     override fun onResume() {
         super.onResume()
-        
+
         // Recommended: Call in onResume for continuous monitoring
         FunGuardSDK.checkSecurity(
             context = this,
@@ -330,7 +354,7 @@ class MainActivity : ComponentActivity() {
             listener = securityListener
         )
     }
-    
+
     private fun saveImportantData() {
         // Save user data, preferences, etc.
     }
@@ -428,7 +452,7 @@ override fun onCancel(issueType: SecurityIssue) {
     // CRITICAL: Save any important data or complete pending work
     saveUserData()
     completePendingOperations()
-    
+
     // Then close the app
     finish() // For Activity
     // or System.exit(0) // For complete app termination
