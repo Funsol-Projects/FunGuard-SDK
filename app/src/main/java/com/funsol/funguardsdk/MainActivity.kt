@@ -51,7 +51,13 @@ class MainActivity : ComponentActivity() {
                     // result.isSecure to check for results if you false the dialog
                 }
 
+                override fun onWarningDialogShown(issueType: SecurityIssue) {
+                    // Called when warning dialog is displayed
+                    // You can log analytics, track events, etc. here
+                }
+
                 override fun onCancel(issueType: SecurityIssue) {
+                    // Handle cancel action
                 }
 
             }
