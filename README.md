@@ -44,7 +44,7 @@ Add the FunGuard SDK AAR to your project's `build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation("com.github.Funsol-Projects:FunGuard-SDK:v1.0.1")
+    implementation("com.github.Funsol-Projects:FunGuard-SDK:v1.0.2")
 }
 ```
 
@@ -54,14 +54,7 @@ The SDK uses Jetpack Compose for the warning dialog UI. If your project doesn't 
 
 ```kotlin
 dependencies {
-    // Compose dependencies (required if your project doesn't use Compose)
-    val composeBom = platform("androidx.compose:compose-bom:2024.02.00")
-    implementation(composeBom)
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.runtime:runtime")
-    implementation("androidx.activity:activity-compose:1.8.2")
+    // Lifecycle for coroutine scope
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     
     // Coroutines for async operations (required)
@@ -103,6 +96,11 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        override fun onWarningDialogShown(issueType: SecurityIssue) {
+            // Called when warning dialog is displayed
+            // You can log analytics, track events, etc. here
+        }
+        
         override fun onCancel(issueType: SecurityIssue) {
             // IMPORTANT: When user clicks Cancel, you MUST close the app yourself
             // SDK will NOT automatically close the app
@@ -246,6 +244,7 @@ Interface for receiving security check results and dialog events.
 interface SecurityListener {
     fun onSecurityCheckComplete(result: SecurityResult)
     fun onCancel(issueType: SecurityIssue)
+    override fun onWarningDialogShown(issueType: SecurityIssue)
 }
 ```
 
@@ -336,6 +335,10 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        override fun onWarningDialogShown(issueType: SecurityIssue) {
+            // Called when warning dialog is displayed
+            // You can log analytics, track events, etc. here
+        }
         override fun onCancel(issueType: SecurityIssue) {
             // IMPORTANT: User clicked Cancel - close app yourself
             // Save any important data before closing
